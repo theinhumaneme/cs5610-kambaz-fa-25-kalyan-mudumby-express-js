@@ -1,0 +1,51 @@
+{
+  "name": "cs5610-kambaz-fall-25-kalyan-mudumby",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "homepage": "https://github.com/theinhumaneme/cs5610-kambaz-fa-25-kalyan-mudumby-express-js#readme",
+  "bugs": {
+    "url": "https://github.com/theinhumaneme/cs5610-kambaz-fa-25-kalyan-mudumby-express-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theinhumaneme/cs5610-kambaz-fa-25-kalyan-mudumby-express-js.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "lint": "eslint",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "typescript-eslint": "^8.46.3"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.11.1",
+    "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.39.1",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.5.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.3.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss,md,json}": [
+      "prettier --write"
+    ]
+  }
+}
