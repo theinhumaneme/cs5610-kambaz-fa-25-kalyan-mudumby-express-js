@@ -1,6 +1,8 @@
 import cors from "cors";
 import express from "express";
 import Hello from "./Hello.js";
+import db from "./Kambaz/Database/index.js";
+import UserRoutes from "./Kambaz/Users/routes.js";
 import Lab5 from "./Lab5/index.js";
 import PathParameters from "./Lab5/PathParameters.js";
 import QueryParameters from "./Lab5/QueryParameter.js";
@@ -9,6 +11,7 @@ import WorkingWithModules from "./Lab5/WorkingWithModules.js";
 import WorkingWithObjects from "./Lab5/WorkingWithObject.js";
 
 const app = express();
+UserRoutes(app, db);
 app.use(cors());
 const port = process.env.PORT || 4000;
 
