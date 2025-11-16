@@ -5,6 +5,7 @@ import session from "express-session";
 import Hello from "./Hello.js";
 import db from "./Kambaz/Database/index.js";
 
+import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
@@ -51,6 +52,7 @@ UserRoutes(app, db);
 CourseRoutes(app, db);
 ModuleRoutes(app, db);
 EnrollmentRoutes(app, db);
+AssignmentRoutes(app, db);
 Lab5(app);
 Hello(app);
 PathParameters(app);

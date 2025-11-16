@@ -24,8 +24,6 @@ export default function EnrollmentsDao(db) {
           enrollment.course === courseId && enrollment.user === user._id,
       ),
     );
-
-    console.log(enrolledUsers);
     return enrolledUsers;
   }
   return {
