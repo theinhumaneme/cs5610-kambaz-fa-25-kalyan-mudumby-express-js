@@ -1,5 +1,4 @@
 import UsersDao from "./dao.js";
-let currentUser = null;
 export default function UserRoutes(app, db) {
   const dao = UsersDao(db);
   // const createUser = (req, res) => { };
@@ -10,28 +9,50 @@ export default function UserRoutes(app, db) {
     const userId = req.params.userId;
     const userUpdates = req.body;
     dao.updateUser(userId, userUpdates);
-    currentUser = dao.findUserById(userId);
+    let currentUser = dao.findUserById(userId);
     res.json(currentUser);
   };
 
   const signup = (req, res) => {
     const user = dao.findUserByUsername(req.body.username);
     if (user) {
-      res.status(400).json({ message: "Username already in use" });
+      res.status(400).json({ message: "Username already taken" });
       return;
     }
-    currentUser = dao.createUser(req.body);
-    res.json(currentUser);
+    const currentUser = dao.createUser(req.body);
+    req.session["currentUser"] = currentUser;
+    req.session.save((err) => {
+      if (err) {
+        res.status(500).json({ message: "Unable to save session" });
+        return;
+      }
+      res.json(currentUser);
+    });
   };
 
   const signin = (req, res) => {
     const { username, password } = req.body;
-    currentUser = dao.findUserByCredentials(username, password);
-    res.json(currentUser);
+    const currentUser = dao.findUserByCredentials(username, password);
+    if (currentUser) {
+      req.session["currentUser"] = currentUser;
+      req.session.save((err) => {
+        if (err) {
+          res.status(500).json({ message: "Unable to save session" });
+          return;
+        }
+        res.json(currentUser);
+      });
+    } else {
+      res.status(401).json({ message: "Unable to login. Try again later." });
+    }
   };
-  // const signout = (req, res) => { };
+
   const profile = async (req, res) => {
-    res.json(currentUser);
+    res.json(req.session["currentUser"]);
+  };
+  const signout = (req, res) => {
+    req.session.destroy();
+    res.sendStatus(200);
   };
 
   // app.post("/api/users", createUser);
@@ -41,6 +62,6 @@ export default function UserRoutes(app, db) {
   // app.delete("/api/users/:userId", deleteUser);
   app.post("/api/users/signup", signup);
   app.post("/api/users/signin", signin);
-  // app.post("/api/users/signout", signout);
+  app.post("/api/users/signout", signout);
   app.post("/api/users/profile", profile);
 }
