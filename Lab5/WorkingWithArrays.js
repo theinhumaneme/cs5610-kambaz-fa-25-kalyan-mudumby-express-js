@@ -83,8 +83,8 @@ export default function WorkingWithArrays(app) {
   app.get("/lab5/todos/:id/title/:title", updateTodoTitle);
   app.get("/lab5/todos/:id/delete", removeTodo);
 
+  app.get("/lab5/todos/create", createNewTodo);
   app.get("/lab5/todos/:id", getTodoById);
   app.get("/lab5/todos", getTodos);
-  app.get("/lab5/todos/create", createNewTodo);
   app.post("/lab5/todos", postNewTodo);
 }
