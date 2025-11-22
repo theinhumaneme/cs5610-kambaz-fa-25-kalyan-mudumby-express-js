@@ -24,7 +24,6 @@ app.use(
     origin: process.env.CLIENT_URL || "http://localhost:3000",
   }),
 );
-app.options("*", cors());
 
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
