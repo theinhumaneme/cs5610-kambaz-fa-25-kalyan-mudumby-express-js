@@ -2,8 +2,8 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import session from "express-session";
+import mongoose from "mongoose";
 import Hello from "./Hello.js";
-import db from "./Kambaz/Database/index.js";
 
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
@@ -17,6 +17,7 @@ import WorkingWithArrays from "./Lab5/WorkingWithArrays.js";
 import WorkingWithModules from "./Lab5/WorkingWithModules.js";
 import WorkingWithObjects from "./Lab5/WorkingWithObject.js";
 
+mongoose.connect(process.env.MONGO_CONNECTION);
 const app = express();
 app.use(
   cors({
@@ -48,11 +49,11 @@ app.use(session(sessionOptions));
 const port = process.env.PORT || 4000;
 
 app.use(express.json()); // if you parse JSON bodies
-UserRoutes(app, db);
-CourseRoutes(app, db);
-ModuleRoutes(app, db);
-EnrollmentRoutes(app, db);
-AssignmentRoutes(app, db);
+UserRoutes(app);
+CourseRoutes(app);
+ModuleRoutes(app);
+EnrollmentRoutes(app);
+AssignmentRoutes(app);
 Lab5(app);
 Hello(app);
 PathParameters(app);
